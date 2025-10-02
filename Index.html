@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MR Web Designer | Desenvolvedor de Landing Pages</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 80px auto;
+      padding: 0 20px;
+    }
+    .section-title {
+      text-align: center;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2.2em;
+      margin-bottom: 50px;
+      color: #1e272e;
+    }
+    /* Classe para alinhar títulos à esquerda */
+    .title-left {
+        text-align: left;
+    }
+
+    /* --- Efeitos de Animação ao Rolar --- */
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .animate-on-scroll.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+
+    /* --- Seção Herói (Principal) --- */
+    .hero {
+      background: linear-gradient(135deg, #2c3e50, #1e272e);
+      color: white;
+      text-align: center;
+      padding: 100px 20px;
+    }
+    .hero h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 3em;
+      margin: 0 0 10px 0;
+    }
+    .hero p { font-size: 1.2em; margin-bottom: 30px; min-height: 58px; }
+    .btn {
+      color: white;
+      padding: 15px 30px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+      font-family: 'Montserrat', sans-serif;
+      transition: all 0.3s ease;
+      background: linear-gradient(45deg, #2ecc71, #27ae60, #2ecc71);
+      background-size: 200% 200%;
+      animation: gradient-animation 3s ease infinite;
+    }
+    @keyframes gradient-animation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .btn:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+
+    /* --- Navegação --- */
+    nav { background-color: #1e272e; padding: 15px; text-align: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+    nav a { color: white; text-decoration: none; margin: 0 20px; font-weight: 500; }
+    
+    .card { background-color: white; padding: 40px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); margin-bottom: 30px; }
+
+    /* --- Seção Sobre Mim --- AJUSTADO --- */
+    .sobre-mim-container {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      justify-content: center; /* Centraliza os itens */
+    }
+    .sobre-mim-texto {
+      flex: 2;
+      max-width: 600px; /* Limita a largura do texto em telas grandes */
+    }
+    .sobre-mim-foto {
+      /* flex: 1; Removido */
+      text-align: center;
+      margin: 0 auto; /* Ajuda na centralização */
+    }
+    .sobre-mim-foto img {
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid #2ecc71;
+      box-shadow: 0 0 20px rgba(46, 204, 113, 0.4);
+    }
+    
+    /* --- Seção de Serviços --- */
+    .servicos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; text-align: center; }
+    .servico-card { padding: 30px 20px; border-radius: 8px; transition: all 0.3s ease; }
+    .servico-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+    .servico-card .icon { font-size: 3em; color: #2ecc71; margin-bottom: 15px; }
+    .servico-card h3 { font-family: 'Montserrat', sans-serif; margin-bottom: 10px; }
+
+    /* --- Seção Como Funciona --- */
+    .processo-grid { display: flex; justify-content: space-between; gap: 30px; text-align: center; flex-wrap: wrap; }
+    .processo-step { flex: 1; min-width: 250px; }
+    .processo-step .icon { font-size: 3em; color: #34495e; margin-bottom: 15px; }
+    .processo-step h3 { font-family: 'Montserrat', sans-serif; }
+    
+    /* --- Seção Portfólio --- */
+    .portfolio-grid { display: flex; gap: 30px; justify-content: center; flex-wrap: wrap; }
+    .portfolio-item {
+      background-color: white; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      overflow: hidden; width: 320px; text-align: center; transition: all 0.4s ease;
+      position: relative;
+    }
+    .portfolio-item:hover { transform: translateY(-5px); box-shadow: 0 12px 22px rgba(0,0,0,0.12); }
+    .portfolio-item img { width: 100%; height: 200px; object-fit: cover; transition: transform 0.4s ease; }
+    .portfolio-item:hover img { transform: scale(1.1); }
+    .portfolio-item .overlay {
+        position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(46, 204, 113, 0.85);
+        color: white;
+        display: flex; justify-content: center; align-items: center;
+        opacity: 0; transition: opacity 0.4s ease;
+        font-size: 3em;
+    }
+    .portfolio-item:hover .overlay { opacity: 1; }
+    .portfolio-item-content { padding: 20px; }
+    .portfolio-item-content h3 { font-family: 'Montserrat', sans-serif; margin: 0 0 10px 0; }
+    
+    /* --- Seção FAQ --- */
+    .faq-item { border-bottom: 1px solid #ddd; padding: 15px 0; }
+    .faq-item summary { font-weight: bold; cursor: pointer; font-size: 1.1em; list-style: none; display: flex; justify-content: space-between; }
+    .faq-item summary::after { content: '\f078'; font-family: 'Font Awesome 6 Free'; font-weight: 900; transition: transform 0.3s ease; }
+    .faq-item[open] summary::after { transform: rotate(180deg); }
+    .faq-item p { margin-top: 15px; line-height: 1.6; }
+    
+    /* --- Seção CTA e Rodapé --- */
+    .cta-section { background: #1e272e; color: white; text-align: center; padding: 60px 20px; }
+    .cta-section h2 { font-family: 'Montserrat', sans-serif; font-size: 2em; }
+    footer { text-align: center; padding: 20px; background-color: #121212; color: #aaa; }
+  </style>
+</head>
+<body>
+
+  <header class="hero">
+    <h1>Mr Web Designer</h1>
+    <p>Crio <span id="typed-text"></span></p> <a href="#contato" class="btn">Peça um Orçamento Gratuito</a>
+  </header>
+  
+  <nav>
+    <a href="#sobre">Sobre Mim</a>
+    <a href="#servicos">Serviços</a>
+    <a href="#portfolio">Portfólio</a>
+    <a href="#contato">Contato</a>
+  </nav>
+
+  <main>
+    <div id="sobre" class="container">
+      <div class="card animate-on-scroll">
+        <div class="sobre-mim-container">
+          <div class="sobre-mim-texto">
+            <h2 class="section-title title-left">Olá! Eu sou Maycon Web Designer.</h2>
+            <p>Sou um desenvolvedor freelancer apaixonado por criar soluções digitais que geram resultados reais. Meu foco é em pequenos negócios e profissionais que buscam uma presença online de qualidade sem complicação.</p>
+            <p>Acredito que um bom site é a porta de entrada para novas oportunidades, e minha missão é construir essa porta para você com tecnologia, design e um preço justo.</p>
+          </div>
+          <div class="sobre-mim-foto">
+            <img src="https://i.ibb.co/vnY69WN/IMG-20251002-124632.jpg" alt="Foto de perfil de Mr Web Designer">
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div id="servicos" class="container">
+      <h2 class="section-title animate-on-scroll">O que sua Landing Page vai ter?</h2>
+      <div class="servicos-grid">
+        <div class="servico-card animate-on-scroll delay-1">
+          <i class="fas fa-mobile-alt icon"></i>
+          <h3>Design Responsivo</h3>
+          <p>Seu site funcionará perfeitamente em celulares, tablets e computadores.</p>
+        </div>
+        <div class="servico-card animate-on-scroll delay-2">
+          <i class="fas fa-rocket icon"></i>
+          <h3>Alta Velocidade</h3>
+          <p>Páginas otimizadas para carregar rapidamente, melhorando a experiência do usuário.</p>
+        </div>
+        <div class="servico-card animate-on-scroll delay-3">
+          <i class="fab fa-whatsapp icon"></i>
+          <h3>Integração com WhatsApp</h3>
+          <p>Botão de contato direto para que seus clientes falem com você com apenas um clique.</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="processo" class="container">
+      <h2 class="section-title animate-on-scroll">Meu Processo de Trabalho</h2>
+      <div class="card">
+        <div class="processo-grid">
+          <div class="processo-step animate-on-scroll delay-1">
+            <i class="fas fa-comments icon"></i>
+            <h3>1. Conversa Inicial</h3>
+            <p>Entendo suas necessidades e objetivos para o site.</p>
+          </div>
+          <div class="processo-step animate-on-scroll delay-2">
+            <i class="fas fa-pencil-ruler icon"></i>
+            <h3>2. Criação e Desenvolvimento</h3>
+            <p>Eu construo sua landing page com design moderno e focado em resultados.</p>
+          </div>
+          <div class="processo-step animate-on-scroll delay-3">
+            <i class="fas fa-check-circle icon"></i>
+            <h3>3. Entrega e Lançamento</h3>
+            <p>Seu site no ar, pronto para receber visitantes e gerar negócios!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="portfolio" class="container">
+      <h2 class="section-title animate-on-scroll">Meu Portfólio</h2>
+      <div class="portfolio-grid">
+        
+        <a href="#" class="portfolio-item animate-on-scroll delay-1" style="text-decoration: none; color: inherit;">
+          <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=400" alt="Projeto para Consultoria">
+          <div class="overlay"><i class="fas fa-eye"></i></div>
+          <div class="portfolio-item-content">
+            <h3>Site para Consultoria</h3>
+            <p>Landing page para empresa de consultoria financeira, focada em capturar novos clientes.</p>
+          </div>
+        </a>
+
+        <a href="#" class="portfolio-item animate-on-scroll delay-2" style="text-decoration: none; color: inherit;">
+          <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=400" alt="Projeto para Restaurante">
+          <div class="overlay"><i class="fas fa-eye"></i></div>
+          <div class="portfolio-item-content">
+            <h3>Site para Restaurante</h3>
+            <p>Página para um restaurante local, exibindo o cardápio, fotos e informações de contato.</p>
+          </div>
+        </a>
+
+        <a href="#" class="portfolio-item animate-on-scroll delay-3" style="text-decoration: none; color: inherit;">
+          <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=400" alt="Projeto para Profissional Liberal">
+          <div class="overlay"><i class="fas fa-eye"></i></div>
+          <div class="portfolio-item-content">
+            <h3>Site para Personal Trainer</h3>
+            <p>Site de apresentação para um personal trainer, com foco nos seus serviços e depoimentos.</p>
+          </div>
+        </a>
+
+      </div>
+    </div>
+    
+    <div id="faq" class="container">
+      <h2 class="section-title animate-on-scroll">Dúvidas Frequentes</h2>
+      <div class="card animate-on-scroll">
+          <details class="faq-item">
+            <summary>Quanto tempo leva para criar minha landing page?</summary>
+            <p>Geralmente, o prazo de entrega é de 7 a 14 dias após o recebimento de todo o material (textos e imagens) que você deseja incluir.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Preciso pagar por um domínio e hospedagem?</summary>
+            <p>Sim. O domínio (ex: seunome.com.br) e a hospedagem são serviços que você contrata separadamente. Eu posso te auxiliar em todo o processo de escolha e configuração.</p>
+          </details>
+          <details class="faq-item">
+            <summary>O site terá algum custo de manutenção?</summary>
+            <p>Para sites simples como landing pages, geralmente não há custo de manutenção mensal. Você pagará apenas a renovação anual do seu domínio e hospedagem. Caso precise de atualizações futuras, podemos combinar um valor por hora ou por alteração.</p>
+          </details>
+      </div>
+    </div>
+  </main>
+
+  <section id="contato" class="cta-section">
+    <div class="animate-on-scroll">
+      <h2>Vamos transformar sua ideia em realidade?</h2>
+      <p>Clique no botão abaixo e vamos conversar sobre seu projeto sem compromisso.</p>
+      <a href="https://wa.me/5561996429535?text=Olá!%20Vi%20seu%20site%20e%20gostaria%20de%20um%20orçamento%20para%20uma%20landing%20page." 
+         class="btn" target="_blank">
+         Conversar no WhatsApp
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Mr Web Designer | Todos os direitos reservados.</p>
+  </footer>
+
+  <script>
+    var typed = new Typed('#typed-text', {
+      strings: [
+        'Landing Pages de alto impacto.',
+        'sites rápidos e modernos.',
+        'soluções para o seu negócio.'
+      ],
+      typeSpeed: 50,
+      backSpeed: 25,
+      backDelay: 2000,
+      loop: true
+    });
+
+    const animatedElements = document.querySelectorAll('.animate-on-scroll');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+
+    animatedElements.forEach(element => {
+      observer.observe(element);
+    });
+  </script>
+
+</body>
+</html>
